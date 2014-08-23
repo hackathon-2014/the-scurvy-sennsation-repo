@@ -167,6 +167,10 @@ public class ShowTreasuresActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_treasures);
+        
+        // use this somehow.
+        String name = savedInstanceState.getString(SplashyActivity.USERNAME);
+        
         if (savedInstanceState != null) {
             return;
         }

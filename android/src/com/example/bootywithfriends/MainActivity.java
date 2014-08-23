@@ -74,6 +74,8 @@ public class MainActivity extends Activity {
         
         AndroidDeferredManager deferredManager = new AndroidDeferredManager();
         deferredManager.setAutoSubmit(true);
+        
+        ((TextView) findViewById(R.id.user_name)).setText(savedInstanceState.getString(SplashyActivity.USERNAME));
     }
     
     
@@ -186,6 +188,7 @@ public class MainActivity extends Activity {
         } 
         if (loc == null){
             Log.wtf(BOOTY, "do you have GPS turned off?");
+            return CameraUpdateFactory.zoomOut(); //cause there is no identity function
         }
         LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
         float pretty_close_zoom_level = 13.0f;

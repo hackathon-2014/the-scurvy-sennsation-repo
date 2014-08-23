@@ -47,8 +47,6 @@
         android:ems="10"
         android:hint="Your Name"
         android:inputType="textPersonName" >
-
-        <requestFocus />
     </EditText>
 
 

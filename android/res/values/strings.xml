@@ -10,6 +10,8 @@
     <string name="latitude">latitude</string>
     <string name="longitude">longitude</string>
     <string name="chestImageDesc">Treasure Chest</string>
+    <string name="yes">Yar!</string>
+    <string name="no">Nay!</string>
 
     <item name="tag_treasure_location" type="id"/>
 

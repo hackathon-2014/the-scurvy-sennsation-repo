@@ -17,8 +17,10 @@ import org.jdeferred.android.AndroidDeferredManager;
 import org.jdeferred.android.AndroidExecutionScope;
 import org.jdeferred.android.AndroidExecutionScopeable;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -98,8 +100,8 @@ public class ShowTreasuresActivity extends ListActivity {
                 return null;
             }
 
-
-            Typeface piratey = Typeface.createFromAsset(getAssets(), "fonts/pirate_font.ttf");
+            Typeface piratey = Typeface.createFromAsset(getAssets(),
+                    "fonts/pirate_font.ttf");
             TextView text1 = (TextView) view.findViewById(R.id.text1);
             text1.setText(map.booty);
             text1.setTypeface(piratey);
@@ -123,9 +125,7 @@ public class ShowTreasuresActivity extends ListActivity {
 
                     @Override
                     public void onClick(View v) {
-                        digUpButton.setVisibility(View.GONE);
-                        claimedLabel.setVisibility(View.VISIBLE);
-                        deferredManager.when(new DigUpRunnable(map));
+                        showModelDialog(digUpButton, claimedLabel, map);
                     }
                 });
             }
@@ -133,6 +133,7 @@ public class ShowTreasuresActivity extends ListActivity {
             view.setTag(R.id.tag_treasure_location, map);
             return view;
         }
+
     }
 
     static final class LoadDataCallable implements Callable<Data>,
@@ -175,11 +176,11 @@ public class ShowTreasuresActivity extends ListActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_treasures);
-        
+
         // use this somehow.
         String name = getIntent().getStringExtra(SplashyActivity.USERNAME);
         myId = User.fromName(name);
-        
+
         if (savedInstanceState != null) {
             return;
         }
@@ -337,4 +338,37 @@ public class ShowTreasuresActivity extends ListActivity {
         }
     }
 
+    void showModelDialog(final Button digUpButton, final TextView claimedLabel,
+            final TreasureMap map) {
+        // TODO Auto-generated method stub
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        AlertDialog dialog = builder
+                .setMessage("Claim this booty?")
+                .setTitle("Claim this booty?")
+                .setIcon(R.drawable.sword_flag)
+                .setPositiveButton(R.string.yes,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                Log.i(MainActivity.BOOTY, "Diggin up");
+                                digUpButton.setVisibility(View.GONE);
+                                claimedLabel.setVisibility(View.VISIBLE);
+                                deferredManager.when(new DigUpRunnable(map));
+                            }
+                        })
+                .setNegativeButton(R.string.no,
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                Log.i(MainActivity.BOOTY, "Cancelling dig");
+                            }
+                        }).create();
+        
+        dialog.show();
+    }
 }

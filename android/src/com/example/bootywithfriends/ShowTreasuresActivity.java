@@ -138,7 +138,7 @@ public class ShowTreasuresActivity extends ListActivity {
         public Data call() throws IOException {
 
             String base = "http://www.mattsenn.com/Hackathon/V2/v2.cfc";
-            String parameters = "?method=WhereGoogleID&GoogleID=" + myId;
+            String parameters = "?method=WhereGoogleID&GoogleID=" + myId.uid;
 
             Log.i(MainActivity.BOOTY, "Opening URL to get list of treasures");
 

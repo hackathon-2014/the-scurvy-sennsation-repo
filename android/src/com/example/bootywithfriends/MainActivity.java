@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.bootywithfriends.SaveBeer.Data;
@@ -38,6 +39,8 @@ public class MainActivity extends Activity {
 
     private GoogleMap map;
     private LocationManager manager;
+    
+    private User myUser = User.defaultUsers[0];
     
     public static final String BOOTY = "BootyWithFriends";
 
@@ -73,7 +76,8 @@ public class MainActivity extends Activity {
         deferredManager.setAutoSubmit(true);
         
         
-        ((TextView) findViewById(R.id.user_name)).setText(getIntent().getStringExtra(SplashyActivity.USERNAME));
+        String username = getIntent().getStringExtra(SplashyActivity.USERNAME);
+        myUser = User.fromName(username);
     }
     
     
@@ -116,10 +120,15 @@ public class MainActivity extends Activity {
             public void run() {
 
                 try {
+                    
+                    String myId = myUser.uid;
+                    EditText text = (EditText) findViewById(R.id.user_name);
+                    String yourId = text.getText().toString();
+                    
                     String base = "http://www.mattsenn.com/Hackathon/v1/v1.cfc";
                     String parameters = "?method=Save"
-                            + "&GoogleID=86365E2F-3C03-4DDE-9F01-34AC2F9B04EA"
-                            + "&UsrGoogleID=E409F57C-106A-4E70-8DE7-85AC90FC60AE"
+                            + "&GoogleID=" + myId
+                            + "&UsrGoogleID=" + yourId
                             + "&LocationGUID=" + Bar.findBarByName(data.location).id
                             + "&BootyName=" + data.booty.replace(" ", "+");
 

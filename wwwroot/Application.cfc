@@ -36,7 +36,7 @@ function onRequestStart(LogCFCName) {
 	}
 	request.fw.jQueryUI = 'ui-lightness'
 	request.fw.bootstrap = true
-	request.fw.try = false
+	request.fw.try = true
 	if (IsDefined('form.try')) {
 		request.fw.try = form.try
 	}

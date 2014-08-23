@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/parchment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -7,87 +8,86 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.bootywithfriends.MainActivity"
-    style="@style/parchment" >
+    tools:context="com.example.bootywithfriends.MainActivity" >
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="209dp" />
-    
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="50" />
 
-    <TextView
-        android:id="@+id/info_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="What booty are ye dropping?"
-        android:textColor="@color/app_text_color"
-        android:textSize="20sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50" >
 
-    <TextView
-        android:id="@+id/location_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/user_name"
-        android:layout_below="@+id/info_view"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Location Name"
-        android:textColorHint="@color/app_text_color"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/info_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="What booty are ye dropping?"
+            android:textColor="@color/app_text_color"
+            android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/info_view"
-        android:layout_below="@+id/location_name"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Your Name"
-        android:inputType="textPersonName"
-        android:textColor="@color/app_text_color"
-        android:textColorHint="@color/app_text_placeholder_color"
-        android:textColorLink="@color/app_text_color" >
+        <TextView
+            android:id="@+id/location_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/user_name"
+            android:layout_below="@+id/info_view"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Location Name"
+            android:textColorHint="@color/app_text_color"
+            android:textSize="20sp" />
 
-    </EditText>
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/info_view"
+            android:layout_below="@+id/location_name"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Your Name"
+            android:inputType="textPersonName"
+            android:textColor="@color/app_text_color"
+            android:textColorHint="@color/app_text_placeholder_color"
+            android:textColorLink="@color/app_text_color" >
+        </EditText>
 
-    <EditText
-        android:id="@+id/booty_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/user_name"
-        android:layout_below="@+id/user_name"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Booty Name"
-        android:textColor="@color/app_text_color"
-        android:textColorHint="@color/app_text_placeholder_color"
-        android:textColorLink="@color/app_text_color" />
+        <EditText
+            android:id="@+id/booty_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/user_name"
+            android:layout_below="@+id/user_name"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Booty Name"
+            android:textColor="@color/app_text_color"
+            android:textColorHint="@color/app_text_placeholder_color"
+            android:textColorLink="@color/app_text_color" />
 
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/booty_name"
-        android:layout_below="@+id/booty_name"
-        android:layout_marginTop="10dp"
-        android:onClick="onSaveClick"
-        android:text="Drop your booty" />
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/booty_name"
+            android:layout_below="@+id/booty_name"
+            android:layout_marginTop="10dp"
+            android:onClick="onSaveClick"
+            android:text="Drop your booty" />
 
-    <TextView
-        android:id="@+id/error_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/save_button"
-        android:layout_below="@+id/save_button"
-        android:text="" />
-
-</RelativeLayout>
+        <TextView
+            android:id="@+id/error_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/save_button"
+            android:layout_below="@+id/save_button"
+            android:text="" />
+    </RelativeLayout>
 
 </LinearLayout>

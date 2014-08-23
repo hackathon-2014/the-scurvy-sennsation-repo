@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.People.LoadPeopleResult;
 import com.google.android.gms.plus.Plus;
@@ -26,7 +25,7 @@ public class MainActivity extends ListActivity {
 
     private static final String BOOTY = "BootyWithFriends";
 
-    private GoogleApiClient apiClient;
+    GoogleApiClient apiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,15 +96,7 @@ public class MainActivity extends ListActivity {
 
         Log.i(BOOTY, "connected to google API");
 
-        return new Callable<LoadPeopleResult>() {
-            public LoadPeopleResult call() throws Exception {
-
-                Log.i("BOOTY", "loading list of people");
-                PendingResult<LoadPeopleResult> pendingResult = Plus.PeopleApi
-                        .loadVisible(apiClient, null);
-                return pendingResult.await();
-            }
-        };
+        return new PeopleCallable(this, apiClient);
     }
 
     @Override

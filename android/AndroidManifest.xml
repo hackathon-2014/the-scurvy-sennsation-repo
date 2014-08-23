@@ -35,6 +35,20 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBOTBx2bNPQhxco6fkk6k1mAyPEFnEBoO4" />
+
+        <activity
+            android:name=".SaveBeer"
+            android:label="@string/title_activity_save_beer" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.bootywithfriends.MainActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

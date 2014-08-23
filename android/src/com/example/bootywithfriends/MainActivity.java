@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
             public void run() {
 
                 try {
-                    String base = "http://www.mattsenn.com/Hackathon/v1/V1.cfc";
+                    String base = "http://www.mattsenn.com/Hackathon/v1/v1.cfc";
                     String parameters = "?method=Save"
                             + "&GoogleID=86365E2F-3C03-4DDE-9F01-34AC2F9B04EA"
                             + "&UsrGoogleID=E409F57C-106A-4E70-8DE7-85AC90FC60AE"

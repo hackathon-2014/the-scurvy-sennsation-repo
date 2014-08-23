@@ -100,11 +100,11 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/chestImageDesc"
-            android:minHeight="200dp"
-            android:minWidth="200dp"
+            android:minHeight="150dp"
+            android:minWidth="150dp"
             android:paddingLeft="4sp"
             android:scaleType="centerInside"
-            android:src="@drawable/sword_flag" />
+            android:src="@drawable/island_400" />
     </RelativeLayout>
 
 </LinearLayout>

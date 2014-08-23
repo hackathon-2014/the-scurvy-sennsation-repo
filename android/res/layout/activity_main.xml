@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/booty_name"
             android:layout_below="@+id/booty_name"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:onClick="onSaveClick"
             android:text="Drop your booty" />
 
@@ -100,8 +100,8 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/chestImageDesc"
-            android:minHeight="150dp"
-            android:minWidth="150dp"
+            android:minHeight="100dp"
+            android:minWidth="100dp"
             android:paddingLeft="4sp"
             android:scaleType="centerInside"
             android:src="@drawable/island_400" />

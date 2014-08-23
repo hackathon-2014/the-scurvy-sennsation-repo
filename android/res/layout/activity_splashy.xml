@@ -38,22 +38,21 @@
         android:text="Search for booty"
         android:textSize="26sp" />
 
-    <Spinner
-        android:id="@+id/select_user_name"
+    <TextView
+        android:id="@+id/welcome_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:entries="@array/default_users" />
+        android:layout_centerVertical="true"
+        android:textSize="30sp" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/friendly_avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/select_user_name"
+        android:layout_below="@+id/welcome_username"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="60dp"
         android:src="@drawable/open_chest" />
 
 </RelativeLayout>

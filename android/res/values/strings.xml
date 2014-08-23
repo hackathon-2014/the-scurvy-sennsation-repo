@@ -14,5 +14,6 @@
     <item name="tag_treasure_location" type="id"/>
 
     <string name="title_activity_save_beer">SaveBeer</string>
+    <string name="title_activity_show_treasures">ShowTreasuresActivity</string>
 
 </resources>

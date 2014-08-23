@@ -1,6 +1,8 @@
 package com.example.bootywithfriends;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -104,33 +106,49 @@ public class SaveBeer extends Activity {
 
             try {
 
-                URL url = new URL(
-                        "http://www.mattsenn.com/hackathon/v1/v1.cfc?method=Save");
+                String base = "http://www.mattsenn.com/Hackathon/v1/V1.cfc";
+                String parameters = "?method=Save"
+                        + "&GoogleID=86365E2F-3C03-4DDE-9F01-34AC2F9B04EA"
+                        + "&UsrGoogleID=E409F57C-106A-4E70-8DE7-85AC90FC60AE"
+                        + "&LocationName=The+Sparrow" + "&BootyName=Budweiser";
 
-                HttpURLConnection connection = (HttpURLConnection) url
-                        .openConnection();
+                URL url = new URL(base + parameters);
+
+                // HttpURLConnection connection = (HttpURLConnection) url
+                // .openConnection();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(url.openStream()));
+
                 try {
-                    connection.setDoOutput(true);
-
-                    String parameters = "PersonName=" + data.name
-                            + "&LocationName=" + data.location + "&BootyName="
-                            + data.booty;
-
-                    connection.setRequestMethod("POST");
-                    connection.setRequestProperty("Content-Type",
-                            "application/x-www-form-urlencoded");
-                    connection.setRequestProperty("charset", "utf-8");
-                    connection.setRequestProperty("Content-Length", ""
-                            + Integer.toString(parameters.getBytes().length));
-
-                    DataOutputStream wr = new DataOutputStream(
-                            connection.getOutputStream());
-                    wr.writeBytes(parameters);
-                    wr.flush();
-                    wr.close();
+                    String line = reader.readLine();
+                    Log.i(MainActivity.BOOTY, "Read line=" + line);
                 } finally {
-                    connection.disconnect();
+                    reader.close();
                 }
+
+                /*
+                 * try { connection.setDoOutput(true);
+                 * 
+                 * String parameters = "?method=Save" +
+                 * "&GoogleID=86365E2F-3C03-4DDE-9F01-34AC2F9B04EA" +
+                 * "&UsrGoogleID=E409F57C-106A-4E70-8DE7-85AC90FC60AE" +
+                 * "&LocationName=The+Sparrow" + "&BootyName=Budweiser";
+                 * 
+                 * connection.setRequestMethod("POST");
+                 * connection.setRequestProperty("Content-Type",
+                 * "application/x-www-form-urlencoded");
+                 * connection.setRequestProperty("charset", "utf-8");
+                 * connection.setRequestProperty("Content-Length", "" +
+                 * Integer.toString(parameters.getBytes().length));
+                 * 
+                 * Log.i(MainActivity.BOOTY, "Writing bytes=" +
+                 * parameters.getBytes().length);
+                 * 
+                 * DataOutputStream wr = new DataOutputStream(
+                 * connection.getOutputStream()); wr.writeBytes(parameters);
+                 * wr.flush(); wr.close(); } finally { connection.disconnect();
+                 * }
+                 */
 
             } catch (Exception e) {
                 Log.e(MainActivity.BOOTY, "Exception posting", e);

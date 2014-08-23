@@ -344,9 +344,8 @@ public class ShowTreasuresActivity extends ListActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         AlertDialog dialog = builder
-                .setMessage("Claim this booty?")
                 .setTitle("Claim this booty?")
-                .setIcon(R.drawable.sword_flag)
+                .setIcon(R.drawable.parrot)
                 .setPositiveButton(R.string.yes,
                         new DialogInterface.OnClickListener() {
 

@@ -24,7 +24,6 @@
         android:hint="Your Name"
         android:inputType="textPersonName" >
 
-        <requestFocus />
     </EditText>
 
     <EditText
@@ -34,7 +33,7 @@
         android:layout_alignLeft="@+id/user_name"
         android:layout_below="@+id/user_name"
         android:ems="10"
-        android:hint="Location Name" />
+        android:hint="Tap a Location" />
 
     <EditText
         android:id="@+id/booty_name"

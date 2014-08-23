@@ -1,4 +1,5 @@
 component {
+header name='Access-Control-Allow-Origin' value='*';
 
 remote function Claim(GoogleID,TreasureID) returnformat='json' {
 	include '/Inc/newQuery.cfm'

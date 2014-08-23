@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:text="Booty with Friends"
-        android:textSize="50sp" />
+        android:textSize="70sp" />
 
     <Button
         android:id="@+id/button1"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:textSize="30sp" />
+        android:textSize="40sp" />
 
     <ImageView
         android:id="@+id/friendly_avatar"

@@ -27,6 +27,7 @@ public class SplashyActivity extends Activity {
         setContentView(R.layout.activity_splashy);
 
         Typeface piratey = Typeface.createFromAsset(getAssets(), "fonts/pirate_font.ttf");
+        ((TextView) findViewById(R.id.welcome_username)).setTypeface(piratey);
         ((TextView) findViewById(R.id.app_title)).setTypeface(piratey);
         ((Button) findViewById(R.id.button1)).setTypeface(piratey);
         ((Button) findViewById(R.id.button2)).setTypeface(piratey);

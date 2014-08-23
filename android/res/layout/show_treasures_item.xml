@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:textOff="Dig Up" />
+        android:text="Dig Up" />
 
     <TextView
         android:id="@+id/claimed_label"
@@ -73,6 +73,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="Already Claimed!" />
+        android:text="Claimed!" />
 
 </RelativeLayout>

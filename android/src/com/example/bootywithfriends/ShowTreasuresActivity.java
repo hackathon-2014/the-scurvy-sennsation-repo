@@ -3,6 +3,7 @@ package com.example.bootywithfriends;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -83,7 +85,7 @@ public class ShowTreasuresActivity extends ListActivity {
                         false);
             }
 
-            TreasureMap map = getItem(position);
+            final TreasureMap map = getItem(position);
 
             if (map == null) {
                 Log.w(MainActivity.BOOTY, "Null data in ArrayAdapter");
@@ -99,14 +101,24 @@ public class ShowTreasuresActivity extends ListActivity {
             TextView text4 = (TextView) view.findViewById(R.id.text4);
             text4.setText(map.user.name);
 
+            final Button digUpButton = (Button) view
+                    .findViewById(R.id.dig_up_button);
             if (map.claimed) {
-                Button digUpButton = (Button) view
-                        .findViewById(R.id.dig_up_button);
                 digUpButton.setVisibility(View.GONE);
             } else {
-                TextView claimedLabel = (TextView) view
+                final TextView claimedLabel = (TextView) view
                         .findViewById(R.id.claimed_label);
                 claimedLabel.setVisibility(View.GONE);
+
+                digUpButton.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        onDigUpButtonClicked(map);
+                        digUpButton.setVisibility(View.GONE);
+                        claimedLabel.setVisibility(View.VISIBLE);
+                    }
+                });
             }
 
             view.setTag(R.id.tag_treasure_location, map);
@@ -276,12 +288,33 @@ public class ShowTreasuresActivity extends ListActivity {
 
     }
 
-    public void onDigUpButtonClicked(View button) {
-        button.setVisibility(View.GONE);
-        
-        TextView claimedLabel = (TextView) findViewById(R.id.claimed_label);
-        claimedLabel.setVisibility(View.VISIBLE);
-    
-    }
+    public void onDigUpButtonClicked(TreasureMap map) {
 
+        Log.i(MainActivity.BOOTY, "Digging up something");
+        try {
+
+            String base = "http://www.mattsenn.com/Hackathon/v1/V1.cfc";
+            String parameters = "?method=Save"
+                    + "&GoogleID=86365E2F-3C03-4DDE-9F01-34AC2F9B04EA"
+                    + "&UsrGoogleID=E409F57C-106A-4E70-8DE7-85AC90FC60AE"
+                    + "&LocationName=The+Sparrow" + "&BootyName=Budweiser";
+
+            URL url = new URL(base + parameters);
+
+            // HttpURLConnection connection = (HttpURLConnection) url
+            // .openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    url.openStream()));
+
+            try {
+                String line = reader.readLine();
+                Log.i(MainActivity.BOOTY, "Read line=" + line);
+            } finally {
+                reader.close();
+            }
+        } catch (Exception e) {
+            Log.e(MainActivity.BOOTY, "Exception posting", e);
+        }
+
+    }
 }

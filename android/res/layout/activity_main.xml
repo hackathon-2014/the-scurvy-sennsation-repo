@@ -32,8 +32,8 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Location Name"
-            android:textColorHint="@color/app_text_color"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            style="@style/Shadow" />
 
         <TextView
             android:id="@+id/info_view"
@@ -43,8 +43,8 @@
             android:layout_below="@+id/location_name"
             android:layout_marginTop="20dp"
             android:text="What booty are ye dropping?"
-            android:textColor="@color/app_text_color"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            style="@style/Shadow" />
 
         <EditText
             android:id="@+id/user_name"

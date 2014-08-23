@@ -1,15 +1,12 @@
 <cfscript>
-
+GoogleID = 'E409F57C-106A-4E70-8DE7-85AC90FC60AE'
+response = new V2().WhereGoogleID(GoogleID)
 </cfscript>
 
 <cfoutput>
 <cfinclude template="/Inc/html.cfm">
 <cfinclude template="/Inc/body.cfm">
-<h1>Aye!</h1>
-<ul>
-	<li><a href="v1/v1.cfm">Post booty</a></li>
-	<li><a href="v2/WhereGoogleID.cfm">WhereGoogleID</a></li>
-</ul>
+<cfdump var="#response#">
 <cfinclude template="/Inc/foot.cfm">
 <cfinclude template="/Inc/End.cfm">
 </cfoutput>

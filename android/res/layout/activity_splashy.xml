@@ -12,7 +12,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:text="Booty with Friends"
-        android:textSize="70sp" />
+        android:textSize="70sp"
+        style="@style/Shadow" />
 
     <Button
         android:id="@+id/button1"

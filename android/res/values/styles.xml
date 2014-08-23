@@ -1,28 +1,28 @@
 <resources>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
     <style name="AppBaseTheme" parent="android:Theme.Holo">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    
+
     <style name="parchment">
         <item name="android:background">@drawable/texture_old_parchment</item>
     </style>
-    
+
+    <style name="Shadow">
+        <item name="android:textColor">#cccccc</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+
     <color name="app_text_color">#000000</color>
     <color name="app_text_placeholder_color">#000000</color>
 

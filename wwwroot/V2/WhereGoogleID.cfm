@@ -6,7 +6,7 @@ response = new V2().WhereGoogleID(GoogleID)
 <cfoutput>
 <cfinclude template="/Inc/html.cfm">
 <cfinclude template="/Inc/body.cfm">
-<cfdump var="#response#">
+#response#
 <cfinclude template="/Inc/foot.cfm">
 <cfinclude template="/Inc/End.cfm">
 </cfoutput>

@@ -115,8 +115,9 @@ GO
 --
 -- Data
 --
-DECLARE @PersonID Int
-DECLARE @UsrID Int
+DECLARE @MichaelID Int
+DECLARE @MatthewID Int
+DECLARE @PhillipID Int
 DECLARE @LocationID Int
 DECLARE @BootyID Int
 INSERT INTO Location(LocationName,LocationGUID) VALUES('Daniel Island club','5400BA70-57BF-472B-858A-C1691F9ECBD9')
@@ -149,17 +150,67 @@ INSERT INTO Person(PersonName,GoogleID) VALUES('John Davis','2E20C7D3-D5C2-4363-
 INSERT INTO Person(PersonName,GoogleID) VALUES('Edward England','4800E04C-CAE3-40A5-8637-69AFE0E56C3A')
 INSERT INTO Person(PersonName,GoogleID) VALUES('John Evans','A50E1055-31BB-4B7A-B952-4239947D1FF6')
 INSERT INTO Person(PersonName,GoogleID) VALUES('Captain Fly','82AF2D7C-2058-4311-A51D-D61CE897CBE1')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Captain Pierre Francois','570AF846-47DB-4562-A76E-1D8E26389482')
+INSERT INTO Person(PersonName,GoogleID) VALUES('John Gow','C5B3F177-3A88-4D8D-A978-708BF78AEBCA')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Laurence de Graff','85432E28-2633-48F8-80AA-7C639693F8A3')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Sieur de Grammont','2986EF59-7946-4727-B57B-F9B14AFE8D53')
+INSERT INTO Person(PersonName,GoogleID) VALUES('John Halsey','5BCA46B8-E38D-44C3-81C1-835DD51581D0')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Walter Kennedy','131481F7-7153-4D4B-BC0F-0978EE4EA6F6')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Captain Kidd','DB03E034-24D3-4081-A3E2-A348770A6CAA')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Captain Lewid','7F3A996C-BE81-4D86-9B22-8AA3018DF56F')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Francis Lolonois','085AC0A1-14E9-4DD1-9575-6EB12C608488')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Captain Edward Low','DEEC31E7-9117-436B-8EE0-67CA696C3810')
+INSERT INTO Person(PersonName,GoogleID) VALUES('George Lowther','3790B4E7-94F5-4033-9D4B-380391F32287')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Edward Mansvelt','A2771AAD-5B05-46B9-B11E-A81719AF4D6C')
+INSERT INTO Person(PersonName,GoogleID) VALUES('John Martel','DEDC4D5B-4CD4-4E5A-8024-663BCE91FBD1')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Sieur de Montauban','6DFE206A-5659-4224-830A-5486D2CC1C9D')
+INSERT INTO Person(PersonName,GoogleID) VALUES('Montbar','1A9739E6-367C-4B4E-8C4C-0CB13E35581A')
+
+
+
 INSERT INTO Person(PersonName,GoogleID) VALUES('Phillip Senn','F655CFC7-D6AF-4091-B3C6-61AFE838B61A')
+SELECT @PhillipID = Scope_Identity()
+
 INSERT INTO Person(PersonName,GoogleID) VALUES('Michael Senn','86365E2F-3C03-4DDE-9F01-34AC2F9B04EA')
-SELECT @UsrID = Scope_Identity()
+SELECT @MichaelID = Scope_Identity()
+
 INSERT INTO Person(PersonName,GoogleID) VALUES('Matthew Senn','E409F57C-106A-4E70-8DE7-85AC90FC60AE')
-SELECT @PersonID = Scope_Identity()
+SELECT @MatthewID = Scope_Identity()
 
-INSERT INTO Booty(BootyName) VALUES('PBR')
-SELECT @BootyID = Scope_Identity()
+INSERT INTO Booty(BootyName) VALUES('Grog')
+INSERT INTO Booty(BootyName) VALUES('Rum')
+INSERT INTO Booty(BootyName) VALUES('Port')
+INSERT INTO Booty(BootyName) VALUES('Beer')
+INSERT INTO Booty(BootyName) VALUES('Ale')
+INSERT INTO Booty(BootyName) VALUES('Cider')
+INSERT INTO Booty(BootyName) VALUES('Wine')
+INSERT INTO Booty(BootyName) VALUES('Gin')
+INSERT INTO Booty(BootyName) VALUES('Juice')
+INSERT INTO Booty(BootyName) VALUES('Water')
 
-INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@PersonID,@UsrID,@BootyID,@LocationID,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,100,1000,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,101,1001,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,102,1002,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,103,1003,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,104,1004,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,105,1005,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,106,1006,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,107,1007,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@MatthewID,108,1008,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MichaelID,@PhillipID,109,1009,getdate())
 
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MatthewID,@MichaelID,100,1000,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MatthewID,@MichaelID,101,1001,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MatthewID,@MichaelID,102,1002,getdate())
+
+
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MatthewID,@PhillipID,103,1003,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MatthewID,@PhillipID,104,1004,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@MatthewID,@PhillipID,105,1005,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@PhillipID,@MichaelID,106,1006,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@PhillipID,@MatthewID,107,1007,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@PhillipID,@MatthewID,108,1008,getdate())
+INSERT INTO Treasure(Treasure_PersonID,Treasure_UsrID,Treasure_BootyID,Treasure_LocationID,Claimed) VALUES(@PhillipID,@MichaelID,109,1009,getdate())
 
 --
 -- SELECT
@@ -170,8 +221,11 @@ SELECT * FROM Booty
 SELECT * FROM Location
 */
 SELECT PersonName,UsrName,BootyName,LocationName,* FROM TreasureView
-select * from treasure
+select * from treasure order by claimed desc
+
 
 
 select *
 from location
+
+select * from treasure

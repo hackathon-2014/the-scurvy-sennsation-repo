@@ -39,6 +39,8 @@ import com.google.gson.Gson;
 
 public class ShowTreasuresActivity extends ListActivity {
 
+    private static final String myId = "E409F57C-106A-4E70-8DE7-85AC90FC60AE";
+
     static final class Data {
         public List<String> COLUMNS;
         public List<List<Object>> DATA;
@@ -67,7 +69,7 @@ public class ShowTreasuresActivity extends ListActivity {
 
             Object claimed = (String) datum.get(3);
             map.claimed = (claimed != null) && !(claimed.toString().isEmpty());
-            map.treasureId = datum.get(4).toString();
+            map.treasureId = String.valueOf(((Number) datum.get(4)).intValue());
             return map;
         }
     }
@@ -134,8 +136,6 @@ public class ShowTreasuresActivity extends ListActivity {
 
         @Override
         public Data call() throws IOException {
-
-            String myId = "E409F57C-106A-4E70-8DE7-85AC90FC60AE";
 
             String base = "http://www.mattsenn.com/Hackathon/V2/v2.cfc";
             String parameters = "?method=WhereGoogleID&GoogleID=" + myId;
@@ -307,7 +307,7 @@ public class ShowTreasuresActivity extends ListActivity {
             Log.i(MainActivity.BOOTY, "Digging up something");
             try {
 
-                String uid = User.defaultUsers[0].uid;
+                String uid = myId;
                 String treasureId = map.treasureId;
 
                 String base = "http://www.mattsenn.com/Hackathon/v3/v3.cfc";

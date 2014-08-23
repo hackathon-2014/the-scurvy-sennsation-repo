@@ -176,7 +176,10 @@ public class ShowTreasuresActivity extends ListActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_treasures);
-
+        
+        Typeface piratey = Typeface.createFromAsset(getAssets(), "fonts/pirate_font.ttf");
+        ((TextView) findViewById(R.id.label_view)).setTypeface(piratey);
+        
         // use this somehow.
         String name = getIntent().getStringExtra(SplashyActivity.USERNAME);
         myId = User.fromName(name);

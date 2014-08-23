@@ -100,10 +100,10 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/chestImageDesc"
-            android:maxHeight="100dp"
-            android:maxWidth="100dp"
+            android:minHeight="200dp"
+            android:minWidth="200dp"
             android:paddingLeft="4sp"
-            android:scaleType="fitCenter"
+            android:scaleType="centerInside"
             android:src="@drawable/sword_flag" />
     </RelativeLayout>
 

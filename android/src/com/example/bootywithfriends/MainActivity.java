@@ -1,5 +1,9 @@
 package com.example.bootywithfriends;
 
+import java.util.concurrent.Callable;
+
+import org.jdeferred.android.AndroidDeferredManager;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +15,19 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        AndroidDeferredManager deferredManager = new AndroidDeferredManager();
+        deferredManager.setAutoSubmit(true);
+
+        deferredManager.when(loadData());
+    }
+
+    private Callable<Data> loadData() {
+        // TODO Auto-generated method stub
+        
+        GoogleApiClient client;
+        
+        return null;
     }
 
     @Override

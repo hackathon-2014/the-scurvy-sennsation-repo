@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 public class SplashyActivity extends Activity {
     
@@ -32,8 +32,8 @@ public class SplashyActivity extends Activity {
     }
     
     private String name(){
-        TextView textView = (TextView) findViewById(R.id.select_user_name);
-        return textView.getText().toString();
+        Spinner spinner = (Spinner) findViewById(R.id.select_user_name);
+        return spinner.getSelectedItem().toString();
     }
 
 }

@@ -3,7 +3,6 @@ package com.example.bootywithfriends;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -169,7 +168,7 @@ public class ShowTreasuresActivity extends ListActivity {
         setContentView(R.layout.activity_show_treasures);
         
         // use this somehow.
-        String name = savedInstanceState.getString(SplashyActivity.USERNAME);
+        String name = getIntent().getStringExtra(SplashyActivity.USERNAME);
         
         if (savedInstanceState != null) {
             return;

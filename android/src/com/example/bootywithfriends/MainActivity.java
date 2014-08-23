@@ -22,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.bootywithfriends.SaveBeer.Data;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -41,8 +40,6 @@ public class MainActivity extends Activity {
     private LocationManager manager;
     
     public static final String BOOTY = "BootyWithFriends";
-
-    GoogleApiClient apiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +72,8 @@ public class MainActivity extends Activity {
         AndroidDeferredManager deferredManager = new AndroidDeferredManager();
         deferredManager.setAutoSubmit(true);
         
-        ((TextView) findViewById(R.id.user_name)).setText(savedInstanceState.getString(SplashyActivity.USERNAME));
+        
+        ((TextView) findViewById(R.id.user_name)).setText(getIntent().getStringExtra(SplashyActivity.USERNAME));
     }
     
     

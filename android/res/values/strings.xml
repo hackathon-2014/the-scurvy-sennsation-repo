@@ -18,7 +18,7 @@
     <string name="drop_some_booty">Drop Some Booty</string>
     
     <string-array name="default_users">
-        <item>Select user name</item>
+        <item>Who be ye?</item>
         <item>Michael</item>
         <item>Matthew</item>
         <item>Phillip</item>

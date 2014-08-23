@@ -1,21 +1,41 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>BootyWithFriends</groupId>
-  <artifactId>BootyWithFriends</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>Booty With Friends</name>
-  <description>Buy beer. Recommend bars.</description>
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.0</version>
-        <configuration>
-          <source/>
-          <target/>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>BootyWithFriends</groupId>
+	<artifactId>BootyWithFriends</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Booty With Friends</name>
+	<description>Buy beer. Recommend bars.</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.jdeferred</groupId>
+			<artifactId>jdeferred-android</artifactId>
+			<version>1.2.3</version>
+			<type>apklib</type>
+		</dependency>
+		<dependency>
+			<groupId>org.jdeferred</groupId>
+			<artifactId>jdeferred-android-test</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source />
+					<target />
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

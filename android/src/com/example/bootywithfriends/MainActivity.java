@@ -10,6 +10,7 @@ import org.jdeferred.android.AndroidDeferredManager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,9 +20,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.bootywithfriends.R.id;
 import com.example.bootywithfriends.SaveBeer.Data;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -78,6 +81,11 @@ public class MainActivity extends Activity {
         
         String username = getIntent().getStringExtra(SplashyActivity.USERNAME);
         myUser = User.fromName(username);
+        
+        Typeface piratey = Typeface.createFromAsset(getAssets(), "fonts/pirate_font.ttf");
+        ((TextView) findViewById(R.id.info_view)).setTypeface(piratey);
+        ((TextView) findViewById(R.id.location_name)).setTypeface(piratey);
+        ((TextView) findViewById(R.id.save_button)).setTypeface(piratey);
     }
     
     
@@ -123,12 +131,13 @@ public class MainActivity extends Activity {
                     
                     String myId = myUser.uid;
                     EditText text = (EditText) findViewById(R.id.user_name);
-                    String yourId = text.getText().toString();
+                    String mateyName = text.getText().toString();
+                    String mateyId = User.fromName(mateyName).uid;
                     
                     String base = "http://www.mattsenn.com/Hackathon/v1/v1.cfc";
                     String parameters = "?method=Save"
                             + "&GoogleID=" + myId
-                            + "&UsrGoogleID=" + yourId
+                            + "&UsrGoogleID=" + mateyId
                             + "&LocationGUID=" + Bar.findBarByName(data.location).id
                             + "&BootyName=" + data.booty.replace(" ", "+");
 

@@ -23,24 +23,26 @@
         android:layout_weight="50" >
 
         <TextView
-            android:id="@+id/info_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="What booty are ye dropping?"
-            android:textColor="@color/app_text_color"
-            android:textSize="20sp" />
-
-        <TextView
             android:id="@+id/location_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/user_name"
-            android:layout_below="@+id/info_view"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Location Name"
             android:textColorHint="@color/app_text_color"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/info_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/location_name"
+            android:layout_marginTop="20dp"
+            android:text="What booty are ye dropping?"
+            android:textColor="@color/app_text_color"
             android:textSize="20sp" />
 
         <EditText
@@ -48,10 +50,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/info_view"
-            android:layout_below="@+id/location_name"
+            android:layout_below="@+id/info_view"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="Your Name"
+            android:hint="Your Matey&apos;s Name"
             android:inputType="textPersonName"
             android:textColor="@color/app_text_color"
             android:textColorHint="@color/app_text_placeholder_color"
@@ -88,6 +90,20 @@
             android:layout_alignLeft="@+id/save_button"
             android:layout_below="@+id/save_button"
             android:text="" />
+
+        <ImageView
+            android:id="@+id/parrotImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/chestImageDesc"
+            android:maxHeight="65sp"
+            android:maxWidth="65sp"
+            android:paddingLeft="4sp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/parrot" />
     </RelativeLayout>
 
 </LinearLayout>

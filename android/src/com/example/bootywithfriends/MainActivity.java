@@ -18,13 +18,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.People.LoadPeopleResult;
@@ -53,13 +58,16 @@ public class MainActivity extends ListActivity {
         
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         map = mapFragment.getMap();
+        map.setOnInfoWindowClickListener(infoWindowClickListener());
         map.setMyLocationEnabled(true);
         map.moveCamera(toMyPosition(null));
         
+        final BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.small_chest);
         for(Bar bar : Bar.defaultBars){
             MarkerOptions options = new MarkerOptions();
             options.title(bar.title);
             options.position(bar.location);
+            options.icon(icon);
             map.addMarker(options);
         }
         
@@ -69,6 +77,15 @@ public class MainActivity extends ListActivity {
         deferredManager.when(loadData()).then(putDataIntoView())
                 .always(logFinish());
         
+    }
+
+    private OnInfoWindowClickListener infoWindowClickListener() {
+        return new OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Toast.makeText(MainActivity.this, marker.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     @Override

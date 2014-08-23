@@ -25,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.People.LoadPeopleResult;
 import com.google.android.gms.plus.Plus;
@@ -55,6 +56,13 @@ public class MainActivity extends ListActivity {
         map.setMyLocationEnabled(true);
         map.moveCamera(toMyPosition(null));
         
+        for(Bar bar : Bar.defaultBars){
+            MarkerOptions options = new MarkerOptions();
+            options.title(bar.title);
+            options.position(bar.location);
+            map.addMarker(options);
+        }
+        
         AndroidDeferredManager deferredManager = new AndroidDeferredManager();
         deferredManager.setAutoSubmit(true);
 
@@ -72,9 +80,12 @@ public class MainActivity extends ListActivity {
     private CameraUpdate toMyPosition(Location loc) {
         if (loc == null){
             loc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        } 
+        if (loc == null){
+            Log.wtf(BOOTY, "do you have GPS turned off?");
         }
         LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
-        float pretty_close_zoom_level = 15.0f;
+        float pretty_close_zoom_level = 13.0f;
         return CameraUpdateFactory.newLatLngZoom(latLng, pretty_close_zoom_level);
     }
 

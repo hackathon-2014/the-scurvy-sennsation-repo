@@ -18,19 +18,20 @@ public final class PeopleCallable implements Callable<LoadPeopleResult>,
 
     final Context context;
 
-    final GoogleApiClient apiClient;
+    final PendingResult<LoadPeopleResult> pendingResult;
 
     public PeopleCallable(Context context, GoogleApiClient apiClient) {
         this.context = context;
-        this.apiClient = apiClient;
+        this.pendingResult = Plus.PeopleApi.loadVisible(apiClient, null);
     }
 
     public LoadPeopleResult call() throws Exception {
-
-        Log.i("BOOTY", "loading list of people");
-        PendingResult<LoadPeopleResult> pendingResult = Plus.PeopleApi
-                .loadVisible(apiClient, null);
-        return pendingResult.await();
+        Log.i(MainActivity.BOOTY, "loading list of people");
+        try {
+            return pendingResult.await();
+        } finally {
+            Log.i(MainActivity.BOOTY, "returning list of people");
+        }
     }
 
     public AndroidExecutionScope getExecutionScope() {

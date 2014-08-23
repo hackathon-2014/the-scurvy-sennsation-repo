@@ -23,7 +23,7 @@ import com.google.android.gms.plus.model.people.Person;
 
 public class MainActivity extends ListActivity {
 
-    private static final String BOOTY = "BootyWithFriends";
+    public static final String BOOTY = "BootyWithFriends";
 
     GoogleApiClient apiClient;
 
@@ -39,6 +39,7 @@ public class MainActivity extends ListActivity {
 
         deferredManager.when(loadData()).then(putDataIntoView())
                 .always(logFinish());
+        
     }
 
     @Override

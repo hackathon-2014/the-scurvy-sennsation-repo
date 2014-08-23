@@ -260,4 +260,8 @@ public class ShowTreasuresActivity extends ListActivity {
         }
 
     }
+    
+    @Override
+    public void onDigUpButtonClicked(View button) {
+    
 }

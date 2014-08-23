@@ -14,8 +14,8 @@
         android:contentDescription="@string/chestImageDesc"
         android:maxHeight="65sp"
         android:maxWidth="65sp"
-        android:scaleType="fitCenter"
         android:paddingRight="4sp"
+        android:scaleType="fitCenter"
         android:src="@drawable/chest" />
 
     <TextView
@@ -55,8 +55,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text2"
         android:layout_toRightOf="@+id/text3"
-        android:text="@string/longitude"
+        android:text="user"
         android:textColor="#943239"
         android:textSize="14sp" />
+
+    <ToggleButton
+        android:id="@+id/dig_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textOff="Dig Up"
+        android:textOn="Bury" />
 
 </RelativeLayout>

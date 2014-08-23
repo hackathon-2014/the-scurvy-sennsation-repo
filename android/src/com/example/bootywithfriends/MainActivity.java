@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,10 +35,14 @@ public class MainActivity extends ListActivity {
     private GoogleMap map;
     private LocationManager manager;
     
+    public static final String BOOTY = "BootyWithFriends";
+
+    GoogleApiClient apiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("BootyWithFriends", "onCreate called");
-        
+        Log.i(BOOTY, "onCreate called");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -57,6 +60,13 @@ public class MainActivity extends ListActivity {
 
         deferredManager.when(loadData()).then(putDataIntoView())
                 .always(logFinish());
+        
+    }
+
+    @Override
+    protected void onDestroy() {
+        apiClient.disconnect();
+        super.onDestroy();
     }
 
     private CameraUpdate toMyPosition(Location loc) {
@@ -75,7 +85,7 @@ public class MainActivity extends ListActivity {
             @Override public void onProviderDisabled(String provider) {}
             @Override 
             public void onLocationChanged(Location location) {
-                Log.d("BootyWithFriends", "got new location: " + location);
+                Log.d(BOOTY, "got new location: " + location);
                 map.moveCamera(toMyPosition(location));
             }
         };
@@ -88,12 +98,11 @@ public class MainActivity extends ListActivity {
                     Throwable rejected) {
 
                 if (resolved != null) {
-                    Log.i("BootyWithFriends", "Finished with state=" + state);
+                    Log.i(BOOTY, "Finished with state=" + state);
                 }
 
                 if (rejected != null) {
-                    Log.w("BootyWithFriends", "Finished with state=" + state,
-                            rejected);
+                    Log.w(BOOTY, "Finished with state=" + state, rejected);
                 }
 
             }
@@ -104,6 +113,9 @@ public class MainActivity extends ListActivity {
         return new DoneCallback<LoadPeopleResult>() {
 
             public void onDone(LoadPeopleResult result) {
+
+                Log.i(BOOTY, "putting people into view count="
+                        + result.getPersonBuffer().getCount());
 
                 List<Person> plist = new ArrayList<Person>();
                 for (Person p : result.getPersonBuffer()) {
@@ -120,18 +132,15 @@ public class MainActivity extends ListActivity {
 
     private Callable<LoadPeopleResult> loadData() {
 
-        final GoogleApiClient client = new GoogleApiClient.Builder(this)
-                .addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
-                .useDefaultAccount().build();
-        client.connect();
+        Log.i(BOOTY, "connecting to google API");
 
-        return new Callable<LoadPeopleResult>() {
-            public LoadPeopleResult call() throws Exception {
-                PendingResult<LoadPeopleResult> pendingResult = Plus.PeopleApi
-                        .loadVisible(client, null);
-                return pendingResult.await();
-            }
-        };
+        apiClient = new GoogleApiClient.Builder(this).addApi(Plus.API)
+                .addScope(Plus.SCOPE_PLUS_LOGIN).useDefaultAccount().build();
+        apiClient.connect();
+
+        Log.i(BOOTY, "connected to google API");
+
+        return new PeopleCallable(this, apiClient);
     }
 
     @Override

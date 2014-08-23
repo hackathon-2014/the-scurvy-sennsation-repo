@@ -10,6 +10,10 @@ import org.jdeferred.Promise.State;
 import org.jdeferred.android.AndroidDeferredManager;
 
 import android.app.ListActivity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +21,11 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.People.LoadPeopleResult;
 import com.google.android.gms.plus.Plus;
@@ -24,6 +33,9 @@ import com.google.android.gms.plus.model.people.Person;
 
 public class MainActivity extends ListActivity {
 
+    private GoogleMap map;
+    private LocationManager manager;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("BootyWithFriends", "onCreate called");
@@ -31,11 +43,42 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener());
+        manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, gpsListener());
+        
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        map = mapFragment.getMap();
+        map.setMyLocationEnabled(true);
+        map.moveCamera(toMyPosition(null));
+        
         AndroidDeferredManager deferredManager = new AndroidDeferredManager();
         deferredManager.setAutoSubmit(true);
 
         deferredManager.when(loadData()).then(putDataIntoView())
                 .always(logFinish());
+    }
+
+    private CameraUpdate toMyPosition(Location loc) {
+        if (loc == null){
+            loc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+        LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+        float pretty_close_zoom_level = 15.0f;
+        return CameraUpdateFactory.newLatLngZoom(latLng, pretty_close_zoom_level);
+    }
+
+    private LocationListener gpsListener() {
+        return new LocationListener() {
+            @Override public void onStatusChanged(String provider, int status, Bundle extras) {}
+            @Override public void onProviderEnabled(String provider) {}
+            @Override public void onProviderDisabled(String provider) {}
+            @Override 
+            public void onLocationChanged(Location location) {
+                Log.d("BootyWithFriends", "got new location: " + location);
+                map.moveCamera(toMyPosition(location));
+            }
+        };
     }
 
     private AlwaysCallback<People.LoadPeopleResult, Throwable> logFinish() {

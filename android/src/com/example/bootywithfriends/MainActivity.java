@@ -1,15 +1,14 @@
 package com.example.bootywithfriends;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Callable;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import org.jdeferred.AlwaysCallback;
-import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise.State;
 import org.jdeferred.android.AndroidDeferredManager;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -18,25 +17,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.TextView;
 
+import com.example.bootywithfriends.SaveBeer.Data;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.plus.People;
-import com.google.android.gms.plus.People.LoadPeopleResult;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity {
 
     private GoogleMap map;
     private LocationManager manager;
@@ -59,6 +57,7 @@ public class MainActivity extends ListActivity {
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         map = mapFragment.getMap();
         map.setOnInfoWindowClickListener(infoWindowClickListener());
+        map.setOnMarkerClickListener(markerClickListener());
         map.setMyLocationEnabled(true);
         map.moveCamera(toMyPosition(null));
         
@@ -73,25 +72,110 @@ public class MainActivity extends ListActivity {
         
         AndroidDeferredManager deferredManager = new AndroidDeferredManager();
         deferredManager.setAutoSubmit(true);
+    }
+    
+    
+    private void markerClick(Marker marker){
+        TextView text = (TextView) findViewById(R.id.location_name);
+        text.setText(marker.getTitle());
+    }
+    
+    public void onSaveClick(View button) {
 
-        deferredManager.when(loadData()).then(putDataIntoView())
-                .always(logFinish());
-        
+        AndroidDeferredManager deferredManager = new AndroidDeferredManager();
+        deferredManager.setAutoSubmit(true);
+
+        Data data = new Data();
+
+        TextView view = (TextView) findViewById(R.id.user_name);
+        data.name = view.getText().toString();
+
+        view = (TextView) findViewById(R.id.location_name);
+        data.location = view.getText().toString();
+
+        view = (TextView) findViewById(R.id.booty_name);
+        data.booty = view.getText().toString();
+
+        final TextView errorView = (TextView) findViewById(R.id.error_view);
+
+        deferredManager
+            .when(postYourBooty(data))
+            .always(logger());
+
+        if (errorView != null) {
+            errorView.setText("Posting data");
+        }
+    }
+
+    private Runnable postYourBooty(final Data data) {
+        return new Runnable() {
+            
+            @Override
+            public void run() {
+
+                try {
+                    String base = "http://www.mattsenn.com/Hackathon/v1/V1.cfc";
+                    String parameters = "?method=Save"
+                            + "&GoogleID=86365E2F-3C03-4DDE-9F01-34AC2F9B04EA"
+                            + "&UsrGoogleID=E409F57C-106A-4E70-8DE7-85AC90FC60AE"
+                            + "&LocationGUID=" + Bar.findBarByName(data.location).id
+                            + "&BootyName=" + data.booty.replace(" ", "+");
+
+                    URL url = new URL(base + parameters);
+
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(url.openStream()));
+
+                    try {
+                        String line = reader.readLine();
+                        Log.i(MainActivity.BOOTY, "Read line=" + line);
+                    } finally {
+                        reader.close();
+                    }
+
+                } catch (Exception e) {
+                    Log.e(MainActivity.BOOTY, "Exception posting", e);
+                }
+            }
+        };
+    }
+
+
+    private AlwaysCallback<Void, Throwable> logger() {
+        return new AlwaysCallback<Void, Throwable>() {
+            @Override
+            public void onAlways(State state, Void resolved, Throwable rejected) {
+                Log.i(MainActivity.BOOTY, "finished saving beer");
+                if (rejected != null) {
+                    Log.w(MainActivity.BOOTY, "with error", rejected);
+                }
+                
+                TextView errorView = (TextView) findViewById(R.id.error_view);
+                if (errorView != null) {
+                    errorView.setText("Finished saving beer");
+                }
+            }
+        };
+    }
+
+
+    private OnMarkerClickListener markerClickListener() {
+        return new OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                markerClick(marker);  
+                return false;
+            }
+        };
     }
 
     private OnInfoWindowClickListener infoWindowClickListener() {
         return new OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Toast.makeText(MainActivity.this, marker.getTitle(), Toast.LENGTH_SHORT).show();
+                markerClick(marker);
             }
         };
-    }
-
-    @Override
-    protected void onDestroy() {
-        apiClient.disconnect();
-        super.onDestroy();
     }
 
     private CameraUpdate toMyPosition(Location loc) {
@@ -115,60 +199,10 @@ public class MainActivity extends ListActivity {
             public void onLocationChanged(Location location) {
                 Log.d(BOOTY, "got new location: " + location);
                 map.moveCamera(toMyPosition(location));
+                
+                manager.removeUpdates(this);
             }
         };
-    }
-
-    private AlwaysCallback<People.LoadPeopleResult, Throwable> logFinish() {
-        return new AlwaysCallback<People.LoadPeopleResult, Throwable>() {
-
-            public void onAlways(State state, LoadPeopleResult resolved,
-                    Throwable rejected) {
-
-                if (resolved != null) {
-                    Log.i(BOOTY, "Finished with state=" + state);
-                }
-
-                if (rejected != null) {
-                    Log.w(BOOTY, "Finished with state=" + state, rejected);
-                }
-
-            }
-        };
-    }
-
-    private DoneCallback<LoadPeopleResult> putDataIntoView() {
-        return new DoneCallback<LoadPeopleResult>() {
-
-            public void onDone(LoadPeopleResult result) {
-
-                Log.i(BOOTY, "putting people into view count="
-                        + result.getPersonBuffer().getCount());
-
-                List<Person> plist = new ArrayList<Person>();
-                for (Person p : result.getPersonBuffer()) {
-                    plist.add(p);
-                }
-
-                PeopleAdapter adapter = new PeopleAdapter(MainActivity.this);
-                adapter.addAll(plist);
-                MainActivity.this.setListAdapter(adapter);
-            }
-
-        };
-    }
-
-    private Callable<LoadPeopleResult> loadData() {
-
-        Log.i(BOOTY, "connecting to google API");
-
-        apiClient = new GoogleApiClient.Builder(this).addApi(Plus.API)
-                .addScope(Plus.SCOPE_PLUS_LOGIN).useDefaultAccount().build();
-        apiClient.connect();
-
-        Log.i(BOOTY, "connected to google API");
-
-        return new PeopleCallable(this, apiClient);
     }
 
     @Override

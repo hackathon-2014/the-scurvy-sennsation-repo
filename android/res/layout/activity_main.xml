@@ -69,6 +69,14 @@
         android:onClick="onSaveClick"
         android:text="Drop your booty" />
 
+    <TextView
+        android:id="@+id/error_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/save_button"
+        android:layout_below="@+id/save_button"
+        android:text="" />
+
 </RelativeLayout>
 
 </LinearLayout>

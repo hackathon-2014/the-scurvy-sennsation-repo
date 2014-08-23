@@ -152,7 +152,7 @@ public class MainActivity extends Activity {
                 
                 TextView errorView = (TextView) findViewById(R.id.error_view);
                 if (errorView != null) {
-                    errorView.setText("Finished saving beer");
+                    errorView.setText("Your booty has been dropped successfully.");
                 }
             }
         };

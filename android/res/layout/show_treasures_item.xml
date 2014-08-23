@@ -46,7 +46,7 @@
         android:layout_toRightOf="@+id/chestImage"
         android:paddingRight="14dip"
         android:text="Buried by:"
-        android:textColor="#943239"
+        android:textColor="#000000"
         android:textSize="14sp" />
 
     <TextView

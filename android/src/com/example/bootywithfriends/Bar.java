@@ -35,4 +35,13 @@ public class Bar {
         return defaultBars[0];
     }
     
+    public static Bar findBarById(String id) {
+        for(Bar bar : defaultBars) {
+            if (bar.id.equals(id)) {
+                return bar;
+            }
+        }
+        return defaultBars[0];
+    }
+    
 }

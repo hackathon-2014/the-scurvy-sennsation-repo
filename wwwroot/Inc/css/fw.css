@@ -1,0 +1,23 @@
+/* @import url('h5bp.css'); */
+@import url('Railo.css');
+
+body {
+	padding-top:79px;
+	font-family:"Times New Roman", Times, serif;
+	font-size:20px
+}
+.form-control {
+	font-size:20px
+}
+img {
+	max-width:100%
+}
+th.num, td.num, th.date, td.date { /* th.date tells sortable.js to sort by data-date */
+	text-align:right
+}
+#hideWhileLoading { /* This is an id because if the page is huge, we don't want it to be a class.  Don't double dip.  Just display it and end it. */
+	display:none;
+}
+
+
+

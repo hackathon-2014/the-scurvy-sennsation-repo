@@ -66,7 +66,7 @@ public class ShowTreasuresActivity extends ListActivity {
             map.location = Bar.findBarById(datum.get(2).toString());
 
             Object claimed = (String) datum.get(3);
-            map.claimed = (claimed == null) || (claimed.toString().isEmpty());
+            map.claimed = (claimed != null) && !(claimed.toString().isEmpty());
             map.treasureId = datum.get(4).toString();
             return map;
         }
@@ -117,9 +117,9 @@ public class ShowTreasuresActivity extends ListActivity {
 
                     @Override
                     public void onClick(View v) {
-                        onDigUpButtonClicked(map);
                         digUpButton.setVisibility(View.GONE);
                         claimedLabel.setVisibility(View.VISIBLE);
+                        deferredManager.when(new DigUpRunnable(map));
                     }
                 });
             }
@@ -291,38 +291,45 @@ public class ShowTreasuresActivity extends ListActivity {
                 Log.i(MainActivity.BOOTY, "starting maps activity");
                 startActivity(intent);
             }
-
         }
-
     }
 
-    public void onDigUpButtonClicked(TreasureMap map) {
+    private final class DigUpRunnable implements Runnable {
+        private final TreasureMap map;
 
-        Log.i(MainActivity.BOOTY, "Digging up something");
-        try {
+        private DigUpRunnable(TreasureMap map) {
+            this.map = map;
+        }
 
-            String base = "http://www.mattsenn.com/Hackathon/v1/V1.cfc";
-            String parameters = "?method=Save"
-                    + "&GoogleID=86365E2F-3C03-4DDE-9F01-34AC2F9B04EA"
-                    + "&UsrGoogleID=E409F57C-106A-4E70-8DE7-85AC90FC60AE"
-                    + "&LocationName=The+Sparrow" + "&BootyName=Budweiser";
+        @Override
+        public void run() {
 
-            URL url = new URL(base + parameters);
-
-            // HttpURLConnection connection = (HttpURLConnection) url
-            // .openConnection();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    url.openStream()));
-
+            Log.i(MainActivity.BOOTY, "Digging up something");
             try {
-                String line = reader.readLine();
-                Log.i(MainActivity.BOOTY, "Read line=" + line);
-            } finally {
-                reader.close();
-            }
-        } catch (Exception e) {
-            Log.e(MainActivity.BOOTY, "Exception posting", e);
-        }
 
+                String uid = User.defaultUsers[0].uid;
+                String treasureId = map.treasureId;
+
+                String base = "http://www.mattsenn.com/Hackathon/v3/v3.cfc";
+                String parameters = "?method=Claim" + "&GoogleID=" + uid
+                        + "&TreasureID=" + treasureId;
+
+                URL url = new URL(base + parameters);
+
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(url.openStream()));
+                String line = null;
+                try {
+                    line = reader.readLine();
+                } finally {
+                    Log.i(MainActivity.BOOTY, "Read line=" + line);
+                    reader.close();
+                }
+            } catch (Exception e) {
+                Log.e(MainActivity.BOOTY, "Exception digging up treasure", e);
+            }
+
+        }
     }
+
 }

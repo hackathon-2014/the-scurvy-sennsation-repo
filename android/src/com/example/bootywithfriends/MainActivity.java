@@ -26,6 +26,8 @@ public class MainActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("BootyWithFriends", "onCreate called");
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -43,11 +45,11 @@ public class MainActivity extends ListActivity {
                     Throwable rejected) {
 
                 if (resolved != null) {
-                    Log.i("MainActivity", "Finished with state=" + state);
+                    Log.i("BootyWithFriends", "Finished with state=" + state);
                 }
 
                 if (rejected != null) {
-                    Log.w("MainActivity", "Finished with state=" + state,
+                    Log.w("BootyWithFriends", "Finished with state=" + state,
                             rejected);
                 }
 

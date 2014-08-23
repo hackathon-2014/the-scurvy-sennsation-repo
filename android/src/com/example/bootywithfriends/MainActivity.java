@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.bootywithfriends.SaveBeer.Data;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity {
         Log.i(BOOTY, "onCreate called");
 
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

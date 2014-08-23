@@ -24,10 +24,14 @@ import com.google.android.gms.plus.model.people.Person;
 
 public class MainActivity extends ListActivity {
 
+    private static final String BOOTY = "BootyWithFriends";
+
+    private GoogleApiClient apiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("BootyWithFriends", "onCreate called");
-        
+        Log.i(BOOTY, "onCreate called");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -38,6 +42,12 @@ public class MainActivity extends ListActivity {
                 .always(logFinish());
     }
 
+    @Override
+    protected void onDestroy() {
+        apiClient.disconnect();
+        super.onDestroy();
+    }
+
     private AlwaysCallback<People.LoadPeopleResult, Throwable> logFinish() {
         return new AlwaysCallback<People.LoadPeopleResult, Throwable>() {
 
@@ -45,12 +55,11 @@ public class MainActivity extends ListActivity {
                     Throwable rejected) {
 
                 if (resolved != null) {
-                    Log.i("BootyWithFriends", "Finished with state=" + state);
+                    Log.i(BOOTY, "Finished with state=" + state);
                 }
 
                 if (rejected != null) {
-                    Log.w("BootyWithFriends", "Finished with state=" + state,
-                            rejected);
+                    Log.w(BOOTY, "Finished with state=" + state, rejected);
                 }
 
             }
@@ -61,6 +70,9 @@ public class MainActivity extends ListActivity {
         return new DoneCallback<LoadPeopleResult>() {
 
             public void onDone(LoadPeopleResult result) {
+
+                Log.i(BOOTY, "putting people into view count="
+                        + result.getPersonBuffer().getCount());
 
                 List<Person> plist = new ArrayList<Person>();
                 for (Person p : result.getPersonBuffer()) {
@@ -77,15 +89,20 @@ public class MainActivity extends ListActivity {
 
     private Callable<LoadPeopleResult> loadData() {
 
-        final GoogleApiClient client = new GoogleApiClient.Builder(this)
-                .addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
-                .useDefaultAccount().build();
-        client.connect();
+        Log.i(BOOTY, "connecting to google API");
+
+        apiClient = new GoogleApiClient.Builder(this).addApi(Plus.API)
+                .addScope(Plus.SCOPE_PLUS_LOGIN).useDefaultAccount().build();
+        apiClient.connect();
+
+        Log.i(BOOTY, "connected to google API");
 
         return new Callable<LoadPeopleResult>() {
             public LoadPeopleResult call() throws Exception {
+
+                Log.i("BOOTY", "loading list of people");
                 PendingResult<LoadPeopleResult> pendingResult = Plus.PeopleApi
-                        .loadVisible(client, null);
+                        .loadVisible(apiClient, null);
                 return pendingResult.await();
             }
         };

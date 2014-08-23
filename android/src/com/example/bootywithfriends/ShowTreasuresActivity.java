@@ -39,7 +39,7 @@ import com.google.gson.Gson;
 
 public class ShowTreasuresActivity extends ListActivity {
 
-    private static final String myId = "E409F57C-106A-4E70-8DE7-85AC90FC60AE";
+    private static User myId = User.defaultUsers[0];
 
     static final class Data {
         public List<String> COLUMNS;
@@ -174,6 +174,7 @@ public class ShowTreasuresActivity extends ListActivity {
         
         // use this somehow.
         String name = getIntent().getStringExtra(SplashyActivity.USERNAME);
+        myId = User.fromName(name);
         
         if (savedInstanceState != null) {
             return;
@@ -307,7 +308,7 @@ public class ShowTreasuresActivity extends ListActivity {
             Log.i(MainActivity.BOOTY, "Digging up something");
             try {
 
-                String uid = myId;
+                String uid = myId.uid;
                 String treasureId = map.treasureId;
 
                 String base = "http://www.mattsenn.com/Hackathon/v3/v3.cfc";

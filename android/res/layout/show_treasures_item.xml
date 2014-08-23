@@ -59,13 +59,20 @@
         android:textColor="#943239"
         android:textSize="14sp" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/dig_up_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:textOff="Dig Up"
-        android:textOn="Bury" />
+        android:textOff="Dig Up" />
+
+    <TextView
+        android:id="@+id/claimed_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="Already Claimed!" />
 
 </RelativeLayout>

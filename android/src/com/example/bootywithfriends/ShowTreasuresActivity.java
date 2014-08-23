@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,6 +52,8 @@ public class ShowTreasuresActivity extends ListActivity {
         User user;
         String booty;
         Bar location;
+        String treasureId;
+        boolean claimed;
 
         List<Object> original;
 
@@ -95,6 +98,16 @@ public class ShowTreasuresActivity extends ListActivity {
 
             TextView text4 = (TextView) view.findViewById(R.id.text4);
             text4.setText(map.user.name);
+
+            if (map.claimed) {
+                Button digUpButton = (Button) view
+                        .findViewById(R.id.dig_up_button);
+                digUpButton.setVisibility(View.GONE);
+            } else {
+                TextView claimedLabel = (TextView) view
+                        .findViewById(R.id.claimed_label);
+                claimedLabel.setVisibility(View.GONE);
+            }
 
             view.setTag(R.id.tag_treasure_location, map);
             return view;
@@ -264,6 +277,11 @@ public class ShowTreasuresActivity extends ListActivity {
     }
 
     public void onDigUpButtonClicked(View button) {
+        button.setVisibility(View.GONE);
+        
+        TextView claimedLabel = (TextView) findViewById(R.id.claimed_label);
+        claimedLabel.setVisibility(View.VISIBLE);
+    
     }
 
 }

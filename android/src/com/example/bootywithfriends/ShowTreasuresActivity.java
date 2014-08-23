@@ -61,9 +61,13 @@ public class ShowTreasuresActivity extends ListActivity {
         public static TreasureMap from(List<Object> datum) {
             TreasureMap map = new TreasureMap();
             map.original = datum;
-            map.user = User.fromUid((String) datum.get(0));
-            map.booty = (String) datum.get(1);
-            map.location = Bar.findBarById((String) datum.get(2));
+            map.user = User.fromUid(datum.get(0).toString());
+            map.booty = datum.get(1).toString();
+            map.location = Bar.findBarById(datum.get(2).toString());
+
+            Object claimed = (String) datum.get(3);
+            map.claimed = (claimed == null) || (claimed.toString().isEmpty());
+            map.treasureId = datum.get(4).toString();
             return map;
         }
     }
@@ -164,7 +168,8 @@ public class ShowTreasuresActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_treasures);
         
         // use this somehow.

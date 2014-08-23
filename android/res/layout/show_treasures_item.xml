@@ -5,13 +5,23 @@
     android:descendantFocusability="afterDescendants"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Booty name"
+        android:textColor="#433AB5"
+        android:textSize="55sp"
+        android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/chestImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
         android:adjustViewBounds="true"
+        android:layout_below="@+id/text1"
         android:contentDescription="@string/chestImageDesc"
         android:maxHeight="65sp"
         android:maxWidth="65sp"
@@ -20,24 +30,13 @@
         android:src="@drawable/chest" />
 
     <TextView
-        android:id="@+id/text1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/chestImage"
-        android:text="Booty name"
-        android:textColor="#433AB5"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text1"
         android:layout_toRightOf="@+id/chestImage"
         android:text="Booty location"
-        android:textSize="16sp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/text3"
@@ -48,7 +47,7 @@
         android:paddingRight="14dip"
         android:text="Buried by:"
         android:textColor="#000000"
-        android:textSize="14sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/text4"
@@ -57,8 +56,8 @@
         android:layout_below="@+id/text2"
         android:layout_toRightOf="@+id/text3"
         android:text="user"
-        android:textColor="#943239"
-        android:textSize="14sp" />
+        android:textColor="#96151D"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/dig_up_button"
@@ -66,7 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="Dig Up" />
+        android:text="Dig Up"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/claimed_label"
@@ -74,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="Claimed!" />
+        android:text="Claimed!"
+        android:textSize="24sp" />
 
 </RelativeLayout>

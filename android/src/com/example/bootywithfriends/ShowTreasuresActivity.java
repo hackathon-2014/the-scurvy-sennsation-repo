@@ -20,6 +20,7 @@ import org.jdeferred.android.AndroidExecutionScopeable;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -97,8 +98,11 @@ public class ShowTreasuresActivity extends ListActivity {
                 return null;
             }
 
+
+            Typeface piratey = Typeface.createFromAsset(getAssets(), "fonts/pirate_font.ttf");
             TextView text1 = (TextView) view.findViewById(R.id.text1);
             text1.setText(map.booty);
+            text1.setTypeface(piratey);
 
             TextView text2 = (TextView) view.findViewById(R.id.text2);
             text2.setText(map.location.title);

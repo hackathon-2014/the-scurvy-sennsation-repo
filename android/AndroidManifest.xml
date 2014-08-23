@@ -28,11 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name=".MainActivity"
             android:label="@string/drop_some_booty" >
-
         </activity>
 
         <meta-data
@@ -44,7 +42,8 @@
 
         <activity
             android:name=".SaveBeer"
-            android:label="@string/title_activity_save_beer" >
+            android:label="@string/title_activity_save_beer"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.bootywithfriends.MainActivity" />

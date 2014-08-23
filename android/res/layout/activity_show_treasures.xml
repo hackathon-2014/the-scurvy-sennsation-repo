@@ -13,7 +13,8 @@
         android:id="@+id/label_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select a Treasure Map" />
+        android:text="Select a Treasure Map"
+        android:textSize="40sp" />
 
     <ListView
         android:id="@id/android:list"
@@ -21,6 +22,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/label_view"
         android:layout_alignLeft="@+id/label_view"
+        android:dividerHeight="5dp"
         android:drawSelectorOnTop="false" />
 
     <TextView

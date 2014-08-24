@@ -13,13 +13,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/open_chest"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".SplashyActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -30,18 +31,13 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/drop_some_booty" >
         </activity>
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBOTBx2bNPQhxco6fkk6k1mAyPEFnEBoO4" />
-
         <activity
             android:name=".SaveBeer"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_save_beer"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
@@ -53,6 +49,7 @@
         </activity>
         <activity
             android:name=".ShowTreasuresActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_show_treasures" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -61,6 +58,14 @@
             <intent-filter>
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBOTBx2bNPQhxco6fkk6k1mAyPEFnEBoO4" />
+        
     </application>
 
 </manifest>

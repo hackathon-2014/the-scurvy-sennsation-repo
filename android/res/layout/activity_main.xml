@@ -46,27 +46,35 @@
             android:textSize="40sp"
             style="@style/Shadow" />
 
-        <EditText
+        <TextView
+            android:id="@+id/spinner_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/booty_name"
+            android:layout_below="@+id/booty_name"
+            android:layout_marginTop="10dp"
+            android:text="for matey: "
+            android:textSize="20sp" />
+        
+        <Spinner
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/info_view"
-            android:layout_below="@+id/info_view"
-            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/spinner_label"
+            android:layout_below="@+id/booty_name"
             android:ems="10"
-            android:hint="Your Matey&apos;s Name"
+            android:entries="@array/default_users"
             android:inputType="textPersonName"
             android:textColor="@color/app_text_color"
             android:textColorHint="@color/app_text_placeholder_color"
-            android:textColorLink="@color/app_text_color" >
-        </EditText>
+            android:textColorLink="@color/app_text_color" />
 
         <EditText
             android:id="@+id/booty_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/user_name"
-            android:layout_below="@+id/user_name"
+            android:layout_alignLeft="@+id/info_view"
+            android:layout_below="@+id/info_view"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Booty Name"
@@ -78,8 +86,8 @@
             android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/booty_name"
-            android:layout_below="@+id/booty_name"
+            android:layout_alignLeft="@+id/spinner_label"
+            android:layout_below="@+id/spinner_label"
             android:layout_marginTop="10dp"
             android:onClick="onSaveClick"
             android:textSize="40sp"
@@ -106,6 +114,7 @@
             android:paddingLeft="4sp"
             android:scaleType="centerInside"
             android:src="@drawable/island_400" />
+
     </RelativeLayout>
 
 </LinearLayout>

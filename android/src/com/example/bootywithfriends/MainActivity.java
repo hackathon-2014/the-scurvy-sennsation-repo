@@ -20,8 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bootywithfriends.SaveBeer.Data;
 import com.google.android.gms.maps.CameraUpdate;
@@ -84,9 +86,31 @@ public class MainActivity extends Activity {
         ((TextView) findViewById(R.id.info_view)).setTypeface(piratey);
         ((TextView) findViewById(R.id.location_name)).setTypeface(piratey);
         ((TextView) findViewById(R.id.save_button)).setTypeface(piratey);
+        ((TextView) findViewById(R.id.spinner_label)).setTypeface(piratey);
+        
+        setupSpinnerEntries((Spinner) findViewById(R.id.user_name));
     }
     
     
+    private void setupSpinnerEntries(Spinner spinner) {
+        // all this to remove the name
+        String users[] = getResources().getStringArray(R.array.default_users);
+        String entries[] = new String[users.length - 1];
+        int i =0;
+        for(String user : users){
+            if (!user.equals(myUser.name)){
+                entries[i++] = user;
+            }
+        }
+       
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.default_users, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.addAll(entries);
+        spinner.setAdapter(adapter);
+    }
+
+
     private void markerClick(Marker marker){
         TextView text = (TextView) findViewById(R.id.location_name);
         text.setText(marker.getTitle());
@@ -169,10 +193,8 @@ public class MainActivity extends Activity {
                     Log.w(MainActivity.BOOTY, "with error", rejected);
                 }
                 
-                TextView errorView = (TextView) findViewById(R.id.error_view);
-                if (errorView != null) {
-                    errorView.setText("Your booty has been dropped successfully.");
-                }
+                Toast.makeText(MainActivity.this, "Your booty has been dropped successfully", Toast.LENGTH_SHORT).show();
+                finish();
             }
         };
     }

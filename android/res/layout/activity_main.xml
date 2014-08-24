@@ -47,6 +47,7 @@
             style="@style/Shadow" />
 
         <TextView
+            style="@style/Shadow"
             android:id="@+id/spinner_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

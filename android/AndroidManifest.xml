@@ -32,7 +32,8 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/drop_some_booty" >
+            android:label="@string/drop_some_booty"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
 
         <activity

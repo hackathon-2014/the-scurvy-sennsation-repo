@@ -31,7 +31,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="Location Name"
+            android:hint="Tap a Location"
             android:textSize="40sp"
             style="@style/Shadow" />
 

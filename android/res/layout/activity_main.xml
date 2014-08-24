@@ -101,8 +101,8 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/chestImageDesc"
-            android:maxHeight="150dp"
-            android:maxWidth="150dp"
+            android:maxHeight="200dp"
+            android:maxWidth="200dp"
             android:paddingLeft="4sp"
             android:scaleType="centerInside"
             android:src="@drawable/island_400" />

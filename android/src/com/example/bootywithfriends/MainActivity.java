@@ -42,9 +42,9 @@ public class MainActivity extends Activity {
 
     private GoogleMap map;
     private LocationManager manager;
-    
+
     private User myUser = User.defaultUsers[0];
-    
+
     public static final String BOOTY = "BootyWithFriends";
 
     @Override
@@ -52,37 +52,42 @@ public class MainActivity extends Activity {
         Log.i(BOOTY, "onCreate called");
 
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener());
-        manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, gpsListener());
-        
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+                gpsListener());
+        manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
+                gpsListener());
+
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
         map = mapFragment.getMap();
         map.setOnInfoWindowClickListener(infoWindowClickListener());
         map.setOnMarkerClickListener(markerClickListener());
         map.setMyLocationEnabled(true);
         map.moveCamera(toMyPosition(null));
-        
-        final BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.small_chest);
-        for(Bar bar : Bar.defaultBars){
+
+        final BitmapDescriptor icon = BitmapDescriptorFactory
+                .fromResource(R.drawable.small_chest);
+        for (Bar bar : Bar.defaultBars) {
             MarkerOptions options = new MarkerOptions();
             options.title(bar.title);
             options.position(bar.location);
             options.icon(icon);
             map.addMarker(options);
         }
-        
+
         AndroidDeferredManager deferredManager = new AndroidDeferredManager();
         deferredManager.setAutoSubmit(true);
-        
-        
+
         String username = getIntent().getStringExtra(SplashyActivity.USERNAME);
         myUser = User.fromName(username);
-        
-        Typeface piratey = Typeface.createFromAsset(getAssets(), "fonts/pirate_font.ttf");
+
+        Typeface piratey = Typeface.createFromAsset(getAssets(),
+                "fonts/pirate_font.ttf");
         ((TextView) findViewById(R.id.info_view)).setTypeface(piratey);
         ((TextView) findViewById(R.id.location_name)).setTypeface(piratey);
         ((TextView) findViewById(R.id.save_button)).setTypeface(piratey);
@@ -93,29 +98,26 @@ public class MainActivity extends Activity {
     
     
     private void setupSpinnerEntries(Spinner spinner) {
-        // all this to remove the name
-        String users[] = getResources().getStringArray(R.array.default_users);
+        User users[] = User.defaultUsers;
         String entries[] = new String[users.length - 1];
         int i =0;
-        for(String user : users){
-            if (!user.equals(myUser.name)){
-                entries[i++] = user;
+        for(User user : users){
+            if (!user.name.equals(myUser.name)){
+                entries[i++] = user.name;
             }
         }
        
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.default_users, android.R.layout.simple_spinner_item);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.addAll(entries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, entries);
         spinner.setAdapter(adapter);
     }
 
 
-    private void markerClick(Marker marker){
+    private void markerClick(Marker marker) {
         TextView text = (TextView) findViewById(R.id.location_name);
         text.setText(marker.getTitle());
     }
-    
+
     public void onSaveClick(View button) {
 
         AndroidDeferredManager deferredManager = new AndroidDeferredManager();
@@ -135,9 +137,7 @@ public class MainActivity extends Activity {
 
         final TextView errorView = (TextView) findViewById(R.id.error_view);
 
-        deferredManager
-            .when(postYourBooty(data))
-            .always(logger());
+        deferredManager.when(postYourBooty(data)).always(logger());
 
         if (errorView != null) {
             errorView.setText("Posting data");
@@ -146,22 +146,21 @@ public class MainActivity extends Activity {
 
     private Runnable postYourBooty(final Data data) {
         return new Runnable() {
-            
+
             @Override
             public void run() {
 
                 try {
-                    
+
                     String myId = myUser.uid;
                     Spinner spinna = (Spinner) findViewById(R.id.user_name);
                     String mateyName = spinna.getSelectedItem().toString();
                     String mateyId = User.fromName(mateyName).uid;
-                    
+
                     String base = "http://www.mattsenn.com/Hackathon/v1/v1.cfc";
-                    String parameters = "?method=Save"
-                            + "&GoogleID=" + myId
-                            + "&UsrGoogleID=" + mateyId
-                            + "&LocationGUID=" + Bar.findBarByName(data.location).id
+                    String parameters = "?method=Save" + "&GoogleID=" + myId
+                            + "&UsrGoogleID=" + mateyId + "&LocationGUID="
+                            + Bar.findBarByName(data.location).id
                             + "&BootyName=" + data.booty.replace(" ", "+");
 
                     URL url = new URL(base + parameters);
@@ -183,7 +182,6 @@ public class MainActivity extends Activity {
         };
     }
 
-
     private AlwaysCallback<Void, Throwable> logger() {
         return new AlwaysCallback<Void, Throwable>() {
             @Override
@@ -199,12 +197,11 @@ public class MainActivity extends Activity {
         };
     }
 
-
     private OnMarkerClickListener markerClickListener() {
         return new OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                markerClick(marker);  
+                markerClick(marker);
                 return false;
             }
         };
@@ -220,28 +217,40 @@ public class MainActivity extends Activity {
     }
 
     private CameraUpdate toMyPosition(Location loc) {
-        if (loc == null){
+        if (loc == null) {
             loc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        } 
-        if (loc == null){
+        }
+        if (loc == null) {
             Log.wtf(BOOTY, "do you have GPS turned off?");
-            return CameraUpdateFactory.zoomOut(); //cause there is no identity function
+            return CameraUpdateFactory.zoomOut(); // cause there is no identity
+                                                  // function
         }
         LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
         float pretty_close_zoom_level = 13.0f;
-        return CameraUpdateFactory.newLatLngZoom(latLng, pretty_close_zoom_level);
+        return CameraUpdateFactory.newLatLngZoom(latLng,
+                pretty_close_zoom_level);
     }
 
     private LocationListener gpsListener() {
         return new LocationListener() {
-            @Override public void onStatusChanged(String provider, int status, Bundle extras) {}
-            @Override public void onProviderEnabled(String provider) {}
-            @Override public void onProviderDisabled(String provider) {}
-            @Override 
+            @Override
+            public void onStatusChanged(String provider, int status,
+                    Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+
+            @Override
             public void onLocationChanged(Location location) {
                 Log.d(BOOTY, "got new location: " + location);
                 map.moveCamera(toMyPosition(location));
-                
+
                 manager.removeUpdates(this);
             }
         };

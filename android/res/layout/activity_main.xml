@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/spinner_label"
             android:layout_below="@+id/booty_name"
-            android:ems="10"
+            android:minHeight="25sp"
             android:entries="@array/default_users"
             android:inputType="textPersonName"
             android:textColor="@color/app_text_color"

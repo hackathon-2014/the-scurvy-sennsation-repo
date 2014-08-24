@@ -115,9 +115,10 @@ public class MainActivity extends Activity {
 
         Data data = new Data();
 
-        TextView view = (TextView) findViewById(R.id.user_name);
-        data.name = view.getText().toString();
+        Spinner spinna = (Spinner) findViewById(R.id.user_name);
+        data.name = spinna.getSelectedItem().toString();
 
+        TextView view;
         view = (TextView) findViewById(R.id.location_name);
         data.location = view.getText().toString();
 
@@ -142,8 +143,8 @@ public class MainActivity extends Activity {
                 try {
 
                     String myId = myUser.uid;
-                    EditText text = (EditText) findViewById(R.id.user_name);
-                    String mateyName = text.getText().toString();
+                    Spinner spinna = (Spinner) findViewById(R.id.user_name);
+                    String mateyName = spinna.getSelectedItem().toString();
                     String mateyId = User.fromName(mateyName).uid;
 
                     String base = "http://www.mattsenn.com/Hackathon/v1/v1.cfc";
